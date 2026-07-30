@@ -1,5 +1,6 @@
 import {
   createTimer,
+  derive,
   fiveOnFiveOff,
   pause,
   reset,
@@ -9,8 +10,10 @@ import {
   type TimerState,
 } from '@comptimer/timer-core'
 import { useState } from 'react'
+import { SoundToggle } from './SoundToggle'
 import { TimerView } from './TimerView'
 import { useNow } from './useNow'
+import { useSoundCues } from './useSoundCues'
 
 const DEMO_PLAN = fiveOnFiveOff(4, 'Demo · 5 on / 5 off')
 
@@ -18,12 +21,14 @@ const DEMO_PLAN = fiveOnFiveOff(4, 'Demo · 5 on / 5 off')
 export function DemoScreen() {
   const [state, setState] = useState<TimerState>(() => createTimer(DEMO_PLAN))
   const now = useNow(100)
+  const { soundOn, toggleSound } = useSoundCues(derive(state, now))
   const running = state.status === 'running'
 
   return (
     <TimerView
       state={state}
       nowMs={now}
+      cornerControls={<SoundToggle on={soundOn} onToggle={toggleSound} />}
       footer={
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
           {running ? (

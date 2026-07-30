@@ -2,6 +2,13 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-30 — Phase 5: the display grew ears, resilience, and sponsors
+
+- **Cue detection is pure timer-core logic** (`detectCues(prev, next)`, 10 tests): countdown ticks ≤5s, one-minute warning, phase-change horn (start and skip included, resume excluded), finish outranks phase change. Web maps cues to WebAudio square-wave tones — zero audio assets.
+- **Autoplay policy shapes the UX:** sound is off until the speaker toggle is tapped once per page load; preference remembered but a gesture is still required — that's a browser rule, not ours.
+- **Reconnect correctness:** broadcasts missed while disconnected/backgrounded are gone forever, so the display refetches the durable row on disconnected→connected and on tab-visible. The clock never depended on the connection; now the _state_ recovers too.
+- **Contracts:** `logos[]` + `organizerLogoUrl` optional on SessionState (backward compatible — old payloads still parse). Display renders strip + title logo; upload flow still TBD.
+
 ### 2026-07-30 — First end-to-end run: phone drove the venue display
 
 - **Phase 4 acceptance verified on a real device.** Dev client (ad-hoc, iPhone) + Metro → paired to app.comptimer.com by code → Start/Pause/Skip/Reset all reflected on the display. First-time device friction worth remembering: iOS 16+ requires **Developer Mode** (Settings → Privacy & Security) for ad-hoc builds, with a restart; TestFlight builds won't need it.
