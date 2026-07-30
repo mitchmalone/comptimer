@@ -129,6 +129,12 @@ importers:
 
   apps/web:
     dependencies:
+      '@comptimer/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+      '@comptimer/timer-core':
+        specifier: workspace:*
+        version: link:../../packages/timer-core
       react:
         specifier: ^19.2.3
         version: 19.2.3
@@ -154,6 +160,9 @@ importers:
 
   packages/contracts:
     dependencies:
+      '@comptimer/timer-core':
+        specifier: workspace:*
+        version: link:../timer-core
       zod:
         specifier: ^4.3.5
         version: 4.4.3

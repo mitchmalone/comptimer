@@ -10,6 +10,8 @@ export default tseslint.config(
       '**/.expo/**',
       '**/.vercel/**',
       '**/next-env.d.ts',
+      'apps/api/api/*.mjs', // esbuild bundle (gitignored)
+      'apps/marketing/out/**', // static export (gitignored)
     ],
   },
   eslint.configs.recommended,

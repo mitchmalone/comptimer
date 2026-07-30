@@ -11,6 +11,7 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
+    "@comptimer/timer-core": "workspace:*",
     "zod": "^4.3.5"
   },
   "devDependencies": {

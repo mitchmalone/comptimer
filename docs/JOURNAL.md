@@ -2,6 +2,13 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-30 — Phase 3: timer-core state machine + demo display
+
+- **`timer-core` is real now:** `TimerState` (plan + anchor + pause remainder), pure transitions (`start/pause/resume/skip/reset`), and `derive(state, now)` which rolls elapsed time forward through phase boundaries — a frozen or offline display lands on the correct phase at its next frame. 23 tests, written first (red → green; three initial failures were bad arithmetic in the tests, not the implementation).
+- **Transitions normalize before acting:** pause/skip first rewrite the anchor to the _derived_ phase so commands apply to what the crowd sees, not the phase the anchor was set in.
+- **Contracts mirror timer-core with `satisfies z.ZodType<T>`** — schema/type drift is a compile error. `SessionState` (id, title, timer, `updatedAtMs`) defined ready for Phase 4.
+- **Display:** work/rest colour switch, huge tabular-numeral clock (ceil for countdown — 0:00 only when truly done), BOULDER n/N indicator, temporary demo controls, `#pair` scaffold with unambiguous display code. Deployed to app.comptimer.com.
+
 ### 2026-07-30 — Marketing live; static export; a deploy-targeting lesson
 
 - **All four domains now serve production.** www.comptimer.com came up once marketing was actually deployed — the earlier deploys had silently landed in `comptimer-api` because deploy retries ran in a shell whose working directory was still `apps/api`. Lesson: **every `vercel deploy` command must `cd` to the app directory in the same invocation**; verify the `Deploying <team>/<project>` line matches.

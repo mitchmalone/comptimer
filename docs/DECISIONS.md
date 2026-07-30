@@ -2,6 +2,13 @@
 
 > Lightweight ADR format. Newest at the top. Entry: date · title, then **Decision.** / **Why.** / **Tradeoff.**
 
+### 2026-07-30 · Timer state = anchor + derivation; transitions normalize first
+
+**Decision.** `TimerState` stores a phase index plus the epoch when that phase began (`phaseAnchorMs`); `derive(state, now)` computes the visible phase/remaining by walking forward through phase durations. Transitions are pure `(state, now) → state` and re-anchor to the derived position before acting.
+
+- **Why.** This is the sync model from STACK.md §3 made concrete: the network ships tiny state objects, every screen renders from its own clock, gaps (offline, frozen tab) self-heal because the anchor never moves. Normalizing before pause/skip means commands apply to the phase the crowd is watching.
+- **Tradeoff.** Slightly more subtle than a decrementing counter — the invariant "never store remaining time while running" must hold everywhere. Enforced by keeping all of it inside `timer-core` behind tests.
+
 ### 2026-07-30 · Hoisted node linker + prebuilt Vercel deploys
 
 **Decision.** `nodeLinker: hoisted` in `pnpm-workspace.yaml` (real `node_modules` directories, no symlinked `.pnpm` store), and apps deploy to Vercel via `vercel build` + `vercel deploy --prebuilt` (build locally/in CI where the workspace exists, upload output).

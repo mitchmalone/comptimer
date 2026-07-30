@@ -1,17 +1,16 @@
+import { useEffect, useState } from 'react'
+import { PairScreen } from './PairScreen'
+import { TimerScreen } from './TimerScreen'
+
+// Hash-based switching is all the routing this app needs for now:
+// default = demo timer, #pair = pairing scaffold.
 export function App() {
-  return (
-    <main
-      style={{
-        display: 'grid',
-        placeItems: 'center',
-        minHeight: '100vh',
-        margin: 0,
-        background: '#0b0b0f',
-        color: '#fff',
-        fontFamily: 'system-ui, sans-serif',
-      }}
-    >
-      <h1 style={{ fontSize: '8vw', margin: 0 }}>CompTimer</h1>
-    </main>
-  )
+  const [hash, setHash] = useState(() => window.location.hash)
+  useEffect(() => {
+    const onChange = () => setHash(window.location.hash)
+    window.addEventListener('hashchange', onChange)
+    return () => window.removeEventListener('hashchange', onChange)
+  }, [])
+
+  return hash === '#pair' ? <PairScreen /> : <TimerScreen />
 }

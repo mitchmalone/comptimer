@@ -10,6 +10,8 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
+    "@comptimer/contracts": "workspace:*",
+    "@comptimer/timer-core": "workspace:*",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },
