@@ -2,6 +2,12 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-31 — TestFlight pipeline live; testing doctrine changed
+
+- **First production build shipped: 0.1.0 (build 4), auto-submitted to TestFlight.** One interactive run created the App Store provisioning profile (EAS refuses to _create_ credentials non-interactively — Apple constraint); every future build is `pnpm build:ios:mobile -- --auto-submit --non-interactive`, runnable by an agent.
+- **Testing doctrine: TestFlight builds, not Metro.** Mitch tests away from home; dev client + Metro is desk-only iteration. Recorded in STACK §2. Corollary: batch changes per build (~10 min build + Apple processing per cycle).
+- The `eas credentials` menu path is easy to exit early — the reliable way to mint missing credentials is running the actual build interactively once.
+
 ### 2026-07-31 — Phase 6: adjust, competitions, and buttons with real feel
 
 - **`adjust(state, ±ms, now)` completes the transition set** (7 tests): shifts remaining time in the derived phase, clamped to [1s, duration] — a correction can't end a phase (that's skip's job) or overflow it. Works running (anchor shift) and paused (remainder shift).
