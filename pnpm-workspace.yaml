@@ -1,0 +1,8 @@
+packages:
+  - apps/*
+  - packages/*
+allowBuilds:
+  '@swc/core': true # native binary for @vitejs/plugin-react-swc
+  esbuild: true # installs its platform binary
+  lefthook: true # installs the git hooks on postinstall
+  sharp: true # native image codecs (Next.js image optimization)

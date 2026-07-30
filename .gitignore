@@ -1,0 +1,19 @@
+# deps / builds
+node_modules/
+dist/
+.next/
+.expo/
+coverage/
+*.tsbuildinfo
+
+# env & platform state
+.env
+.env.*
+!.env.example
+.vercel/
+
+# OS noise
+.DS_Store
+
+# Claude Code — ignore personal/local state, keep shared config tracked
+.claude/settings.local.json

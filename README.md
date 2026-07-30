@@ -36,15 +36,15 @@ pnpm lint         # ESLint + Prettier check
 
 ## Map
 
-| Path                  | What                                                        |
-| --------------------- | ----------------------------------------------------------- |
-| `apps/web`            | Crowd-facing display (React + Vite) — app.comptimer.com     |
-| `apps/mobile`         | Judge's controller (Expo / React Native)                    |
-| `apps/admin`          | Session/log inspection (React + Vite) — admin.comptimer.com |
-| `apps/api`            | Hono API on Vercel — pairing, webhooks, admin auth          |
-| `packages/timer-core` | Pure timer state machine — no I/O, fully unit-tested        |
-| `packages/contracts`  | Zod schemas + inferred types for every cross-surface payload|
-| `docs/`               | Volatile state: STATUS, ROADMAP, JOURNAL, DECISIONS, plans  |
+| Path                  | What                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| `apps/web`            | Crowd-facing display (React + Vite) — app.comptimer.com      |
+| `apps/mobile`         | Judge's controller (Expo / React Native)                     |
+| `apps/admin`          | Session/log inspection (React + Vite) — admin.comptimer.com  |
+| `apps/api`            | Hono API on Vercel — pairing, webhooks, admin auth           |
+| `packages/timer-core` | Pure timer state machine — no I/O, fully unit-tested         |
+| `packages/contracts`  | Zod schemas + inferred types for every cross-surface payload |
+| `docs/`               | Volatile state: STATUS, ROADMAP, JOURNAL, DECISIONS, plans   |
 
 ## License
 
