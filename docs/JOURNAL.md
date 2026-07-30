@@ -2,6 +2,11 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-30 — First end-to-end run: phone drove the venue display
+
+- **Phase 4 acceptance verified on a real device.** Dev client (ad-hoc, iPhone) + Metro → paired to app.comptimer.com by code → Start/Pause/Skip/Reset all reflected on the display. First-time device friction worth remembering: iOS 16+ requires **Developer Mode** (Settings → Privacy & Security) for ad-hoc builds, with a restart; TestFlight builds won't need it.
+- **Credentials fully provisioned interactively:** reused the account's existing distribution certificate (shared with the backcountrygames apps), registered `com.comptimer.app`, ad-hoc profile with the registered iPhone. `eas build` from a real terminal — the harness shell has no TTY and eas-cli falls back to non-interactive.
+
 ### 2026-07-30 — Mobile delivery wired: EAS + TestFlight (backcountrygames conventions)
 
 - **EAS project created and linked:** `@mitchmalone125/comptimer-app` (id in app.json; slug `comptimer` unavailable — previously used on the account). `eas.json` ports the backcountrygames shape: development (dev client, internal) / preview (internal) / production (autoIncrement), submit profile empty until the ASC app exists.

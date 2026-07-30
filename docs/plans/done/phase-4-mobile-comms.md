@@ -1,6 +1,6 @@
 ---
 title: Phase 4 — Mobile app bones + communication
-status: active
+status: done
 created: 2026-07-30
 updated: 2026-07-30
 links: [docs/ROADMAP.md, STACK.md]
@@ -34,9 +34,9 @@ Web: default screen becomes the pairing flow (code + QR); demo moves to `#demo`.
 
 ## Acceptance criteria
 
-- [ ] Phone Start/Pause/Skip/Reset visibly drives app.comptimer.com
-- [ ] Display refresh mid-session resumes correct time without phone involvement
-- [ ] All tests green; docs closed out in the PR
+- [x] Phone Start/Pause/Skip/Reset visibly drives app.comptimer.com
+- [x] Display refresh mid-session resumes correct time without phone involvement
+- [x] All tests green; docs closed out in the PR
 
 ## Out of scope
 
