@@ -9,7 +9,15 @@ export type {
 } from './types'
 export { fiveOnFiveOff, makeIntervalPlan } from './plan'
 export type { IntervalPlanOptions } from './plan'
-export { createTimer, pause, reset, resume, skip, start } from './transitions'
+export {
+  adjust,
+  createTimer,
+  pause,
+  reset,
+  resume,
+  skip,
+  start,
+} from './transitions'
 export { derive, workPhaseProgress } from './derive'
 export { formatClock } from './format'
 export type { FormatClockOptions } from './format'

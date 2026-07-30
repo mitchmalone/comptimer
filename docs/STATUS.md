@@ -2,7 +2,11 @@
 
 > The cursor. Where the build is right now, newest first. Keep this **terse** — detail belongs in JOURNAL.md, decisions in DECISIONS.md.
 
-Last updated: 2026-07-30
+Last updated: 2026-07-31
+
+> **Update (2026-07-31): Phase 6 verified via TestFlight — session closed with phases 1, 3, 4, 5, 6 done.** Mitch tested the full app from TestFlight build 0.1.0 (4): adjust, competitions, session advance all working against the live display. TestFlight pipeline is fully non-interactive now (`pnpm build:ios:mobile -- --auto-submit --non-interactive`). **Next session starts here:** Phase 2 (marketing — needs `/design-login`) or Phase 7 (RevenueCat + admin + license; note IAP is testable in TestFlight sandbox). Loose ends: Monologue screenshot for the button design pass, logo upload flow, `#demo` route is public, RLS tightening rides with Phase 7 identity.
+
+> **Update (2026-07-31): Phase 6 code complete — adjust, competitions, skeuomorphic controls.** ±30s corrections (timer-core `adjust`, TDD'd), multi-session competitions phone-local under one session id, button pass in pure RN styles (no native deps — existing dev client still valid). PR #5.
 
 > **Update (2026-07-30): Phase 5 built and deployed — sound, resilience, logos.** Cue detection TDD'd in timer-core (last-5s ticks, 1-min warning, phase horn, finish); WebAudio engine + speaker toggle on the display (autoplay policy: one tap to enable); refetch on reconnect + tab-visible; sponsor/organizer logo slots in contracts + display; final-5s red clock + phase progress bar. Listen-check pending: enable sound on app.comptimer.com/#demo and skip near a boundary. PR pending.
 
