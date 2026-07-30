@@ -2,6 +2,13 @@
 
 > Lightweight ADR format. Newest at the top. Entry: date · title, then **Decision.** / **Why.** / **Tradeoff.**
 
+### 2026-07-30 · Supabase via Vercel Marketplace; public channels + anon RLS for bones
+
+**Decision.** The Supabase project is provisioned through the Vercel Marketplace integration (unified billing, env auto-injection). Phase-4 security posture: Realtime broadcast on public channels and RLS policies letting `anon` read/write `sessions` rows keyed by unguessable uuid.
+
+- **Why.** No auth exists yet by design (no-login product); uuid keys make rows and channels unguessable-in-practice; this unblocks the product spine without building identity early. The Marketplace path also survived where direct `supabase projects create` failed on org permissions.
+- **Tradeoff.** Anyone with a session uuid or display code could interfere; codes are short-lived and sessions are uuids, but this is not launch-grade. Tighten alongside device identity in Phase 7 (private channels + scoped policies).
+
 ### 2026-07-30 · Timer state = anchor + derivation; transitions normalize first
 
 **Decision.** `TimerState` stores a phase index plus the epoch when that phase began (`phaseAnchorMs`); `derive(state, now)` computes the visible phase/remaining by walking forward through phase durations. Transitions are pure `(state, now) → state` and re-anchor to the derived position before acting.

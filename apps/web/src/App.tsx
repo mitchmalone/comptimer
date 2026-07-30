@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { PairScreen } from './PairScreen'
-import { TimerScreen } from './TimerScreen'
+import { DemoScreen } from './DemoScreen'
+import { DisplayApp } from './DisplayApp'
 
-// Hash-based switching is all the routing this app needs for now:
-// default = demo timer, #pair = pairing scaffold.
+// Default = the real display (pair, then render the phone-driven session).
+// #demo keeps the local self-driving timer for development and demos.
 export function App() {
   const [hash, setHash] = useState(() => window.location.hash)
   useEffect(() => {
@@ -12,5 +12,5 @@ export function App() {
     return () => window.removeEventListener('hashchange', onChange)
   }, [])
 
-  return hash === '#pair' ? <PairScreen /> : <TimerScreen />
+  return hash === '#demo' ? <DemoScreen /> : <DisplayApp />
 }

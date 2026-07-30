@@ -9,3 +9,6 @@ dist/
 
 # generated at build time
 next-env.d.ts
+
+# vendored agent skills installed by marketplace integrations
+apps/*/.agents/
