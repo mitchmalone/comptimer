@@ -1,13 +1,17 @@
 {
   "expo": {
     "name": "CompTimer",
-    "slug": "comptimer",
-    "version": "1.0.0",
+    "slug": "comptimer-app",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.comptimer.app",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -16,10 +20,17 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.comptimer.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "owner": "mitchmalone125",
+    "extra": {
+      "eas": {
+        "projectId": "b701603a-9fce-4c05-bdfe-f537008a0a3f"
+      }
     }
   }
 }

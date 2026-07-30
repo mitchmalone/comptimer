@@ -2,6 +2,13 @@
 
 > Lightweight ADR format. Newest at the top. Entry: date · title, then **Decision.** / **Why.** / **Tradeoff.**
 
+### 2026-07-30 · Mobile delivery: EAS builds to TestFlight, dev clients for daily work, no OTA
+
+**Decision.** Mirrors Mitch's convention from `~/Developer/backcountrygames`: EAS Build + EAS Submit to TestFlight (`appVersionSource: remote`, production `autoIncrement`, EAS-managed credentials, `usesNonExemptEncryption: false` for non-interactive submits). Daily development on an ad-hoc **dev client**, installed once per registered device — never distributed via TestFlight. No expo-updates/OTA. EAS project: `@mitchmalone125/comptimer-app` (slug `comptimer` was burned by an earlier experiment), bundle id `com.comptimer.app`.
+
+- **Why.** Expo Go is a sandbox, not the real app; TestFlight builds are the actual artifact and the stated preference. Backcountrygames learned the hard way that a dev client on TestFlight displaces the real app for testers — adopted here up front.
+- **Tradeoff.** Every change requires a native build (~minutes) instead of an OTA push; acceptable, and consistent with "boring, replaceable infrastructure."
+
 ### 2026-07-30 · Supabase via Vercel Marketplace; public channels + anon RLS for bones
 
 **Decision.** The Supabase project is provisioned through the Vercel Marketplace integration (unified billing, env auto-injection). Phase-4 security posture: Realtime broadcast on public channels and RLS policies letting `anon` read/write `sessions` rows keyed by unguessable uuid.

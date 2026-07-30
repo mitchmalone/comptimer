@@ -2,6 +2,13 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-30 — Mobile delivery wired: EAS + TestFlight (backcountrygames conventions)
+
+- **EAS project created and linked:** `@mitchmalone125/comptimer-app` (id in app.json; slug `comptimer` unavailable — previously used on the account). `eas.json` ports the backcountrygames shape: development (dev client, internal) / preview (internal) / production (autoIncrement), submit profile empty until the ASC app exists.
+- **Supabase EXPO*PUBLIC*\* vars set on EAS** for development/preview/production environments (plaintext, via `eas env:create` — values never in the repo; profiles pin `environment` so cloud builds resolve them).
+- **One-time interactive steps left for Mitch:** upload/reuse the ASC API key (`npx eas-cli credentials`), register phones (`npx eas-cli device:create`), and add `ascAppId` to `eas.json` submit config once the App Store Connect app record exists.
+- **expo-dev-client now versions with the SDK** (~57.0.x, not ~7.x) — install with `npx expo install expo-dev-client`.
+
 ### 2026-07-30 — Phase 4: Supabase transport, pairing, mobile controller
 
 - **Supabase provisioned via the Vercel Marketplace** (`vercel integration add supabase` from apps/web) after direct `supabase projects create` hit an org-permissions wall. Env vars auto-injected into comptimer-web and pulled locally; VITE\_ mirrors added to Vercel env; EXPO*PUBLIC* mirrors in apps/mobile/.env. Schema applied with libpq psql over `POSTGRES_URL_NON_POOLING` (no `supabase link` needed).
