@@ -1,0 +1,28 @@
+{
+  "name": "comptimer",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.1.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter web --filter api dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint . --max-warnings 0 && prettier --check .",
+    "format": "prettier --write .",
+    "prepare": "lefthook install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.4.1",
+    "@eslint/js": "^9.39.2",
+    "@commitlint/config-conventional": "^20.4.1",
+    "eslint": "^9.39.2",
+    "lefthook": "^2.1.0",
+    "prettier": "^3.8.4",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.47.1"
+  }
+}

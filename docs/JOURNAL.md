@@ -2,6 +2,19 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-30 — Marketing live; static export; a deploy-targeting lesson
+
+- **All four domains now serve production.** www.comptimer.com came up once marketing was actually deployed — the earlier deploys had silently landed in `comptimer-api` because deploy retries ran in a shell whose working directory was still `apps/api`. Lesson: **every `vercel deploy` command must `cd` to the app directory in the same invocation**; verify the `Deploying <team>/<project>` line matches.
+- **Marketing is `output: 'export'` (static).** No serverless functions means no file tracing, which is what broke prebuilt uploads across the workspace root. Revisit only if a marketing page ever needs SSR.
+
+### 2026-07-30 — Phase 1 executed: workspace scaffolded, all apps deployed
+
+- **All four web-facing apps are live on Vercel production** under the `ramenamok` team: comptimer-web (app.comptimer.com), comptimer-admin (admin.comptimer.com), comptimer-api (api.comptimer.com — `/health` returns `{"ok":true}`), comptimer-marketing (www + apex assigned, DNS records pending in Cloudflare).
+- **Deploy path is local prebuilt, not remote build:** `vercel build` + `deploy --prebuilt`; see DECISIONS for the hoisted-linker rationale that unblocked it.
+- **Hono-on-Vercel gotcha:** `hono/vercel`'s `handle` is Edge-only — on the Node runtime it hangs until FUNCTION_INVOCATION_TIMEOUT. Use `@hono/node-server/vercel`.
+- **Vercel CLI notes:** installed CLI (brew) is v54; used `pnpm dlx vercel@latest` (v58). `vercel link --repo` (monorepo linking) is alpha and silently selects zero projects with `--yes`; per-app `vercel link --yes --project <name>` works.
+- **Expo scaffold quirks:** `create-expo-app` prompts even with CI=1 after creating files (harmless); template ships its own AGENTS.md/CLAUDE.md (kept — they carry Expo SDK 57 guidance) and an Expo-copyright LICENSE (removed).
+
 ### 2026-07-30 — Roadmap reordered; Phase 1 plan written
 
 - **Phases resequenced for visible progress:** marketing site moves ahead of product bones so something real is live early; web bones (with `timer-core`) precede mobile bones; communication lands with the mobile phase; polish phases follow per surface.

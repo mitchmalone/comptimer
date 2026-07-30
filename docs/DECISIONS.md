@@ -2,6 +2,13 @@
 
 > Lightweight ADR format. Newest at the top. Entry: date · title, then **Decision.** / **Why.** / **Tradeoff.**
 
+### 2026-07-30 · Hoisted node linker + prebuilt Vercel deploys
+
+**Decision.** `nodeLinker: hoisted` in `pnpm-workspace.yaml` (real `node_modules` directories, no symlinked `.pnpm` store), and apps deploy to Vercel via `vercel build` + `vercel deploy --prebuilt` (build locally/in CI where the workspace exists, upload output).
+
+- **Why.** Prebuilt uploads `lstat` traced files — symlinks into the root `.pnpm` store broke both the Hono function and Next.js deploys. Hoisted layout also matches what Expo/Metro tooling expects in monorepos. Prebuilt deploys sidestep remote-build workspace issues (`tsconfig.base.json` outside the upload) entirely. The API additionally esbuild-bundles to a single self-contained `api/index.mjs` (`framework: null` in `vercel.json` — Vercel's Hono preset would otherwise build a second, broken function).
+- **Tradeoff.** Loses pnpm's strict dependency isolation (phantom deps possible). Git-integration deploys (push-to-deploy with per-project root directories) can replace prebuilt CLI deploys later.
+
 ### 2026-07-30 · Roadmap ordered for visible progress, not dependency purity
 
 **Decision.** Build order: Scaffolding → Marketing site → Web app bones → Mobile app bones + communication → Web polish → Mobile polish → Payments/admin. Timer-core lands with web bones (its first consumer); realtime lands with mobile bones (its first producer).

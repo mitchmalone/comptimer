@@ -1,0 +1,11 @@
+# lockfile is machine-owned
+pnpm-lock.yaml
+
+# build output
+dist/
+.next/
+.expo/
+.vercel/
+
+# generated at build time
+next-env.d.ts
