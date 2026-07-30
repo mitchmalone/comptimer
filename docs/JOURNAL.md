@@ -2,6 +2,12 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-30 — Blank display: React 19 version-mismatch hard crash
+
+- **Symptom: app.comptimer.com rendered nothing.** Root cause: React error #527 — `react` 19.2.3 (pinned exactly by the Expo template, hoisted workspace-wide) alongside `react-dom` 19.2.8 (floated via `^`). React 19 refuses to boot on mismatched copies. This is precisely the phantom-dependency tradeoff the hoisted-linker ADR warned about.
+- **Rule going forward: `react` and `react-dom` are pinned exact and identical in every app.** All three React apps rebuilt and redeployed.
+- **Debugging pattern that worked headless:** load the production `dist` bundle into jsdom and print `body.textContent` — surfaces minified React boot errors without a browser.
+
 ### 2026-07-30 — Phase 3: timer-core state machine + demo display
 
 - **`timer-core` is real now:** `TimerState` (plan + anchor + pause remainder), pure transitions (`start/pause/resume/skip/reset`), and `derive(state, now)` which rolls elapsed time forward through phase boundaries — a frozen or offline display lands on the correct phase at its next frame. 23 tests, written first (red → green; three initial failures were bad arithmetic in the tests, not the implementation).
