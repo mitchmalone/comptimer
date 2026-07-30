@@ -2,6 +2,11 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-30 — Marketing live; static export; a deploy-targeting lesson
+
+- **All four domains now serve production.** www.comptimer.com came up once marketing was actually deployed — the earlier deploys had silently landed in `comptimer-api` because deploy retries ran in a shell whose working directory was still `apps/api`. Lesson: **every `vercel deploy` command must `cd` to the app directory in the same invocation**; verify the `Deploying <team>/<project>` line matches.
+- **Marketing is `output: 'export'` (static).** No serverless functions means no file tracing, which is what broke prebuilt uploads across the workspace root. Revisit only if a marketing page ever needs SSR.
+
 ### 2026-07-30 — Phase 1 executed: workspace scaffolded, all apps deployed
 
 - **All four web-facing apps are live on Vercel production** under the `ramenamok` team: comptimer-web (app.comptimer.com), comptimer-admin (admin.comptimer.com), comptimer-api (api.comptimer.com — `/health` returns `{"ok":true}`), comptimer-marketing (www + apex assigned, DNS records pending in Cloudflare).

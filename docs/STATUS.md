@@ -4,7 +4,7 @@
 
 Last updated: 2026-07-30
 
-> **Update (2026-07-30): Phase 1 essentially done — three of four domains live.** app/admin/api.comptimer.com serve placeholders (API health green). Blocked on two Cloudflare DNS records for www + apex (Mitch, manual). CI runs on the phase-1 PR. Expo-in-Expo-Go boot still to verify on a device.
+> **Update (2026-07-30): Phase 1 done pending PR merge — all four domains live.** www/app/admin/api.comptimer.com all serve their placeholders; API health green; CI green on PR #1. Remaining: merge PR #1, verify Expo boots in Expo Go on a device.
 
 > **Update (2026-07-30): Roadmap reordered for visible progress; Phase 1 plan active.** Order is now Scaffolding → Marketing → Web bones → Mobile bones + comms → Web polish → Mobile polish → Money. `docs/plans/active/phase-1-scaffolding.md` is fully specified and ready for an agent to execute.
 
