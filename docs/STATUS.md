@@ -2,7 +2,9 @@
 
 > The cursor. Where the build is right now, newest first. Keep this **terse** — detail belongs in JOURNAL.md, decisions in DECISIONS.md.
 
-Last updated: 2026-07-30
+Last updated: 2026-07-31
+
+> **Update (2026-07-31): Phase 6 code complete — adjust, competitions, skeuomorphic controls.** ±30s corrections (timer-core `adjust`, TDD'd), multi-session competitions phone-local under one session id, button pass in pure RN styles (no native deps — existing dev client still valid). Needs Mitch on-device: two-session run with an adjust mid-phase. PR pending. Phase 2 still blocked on `/design-login`.
 
 > **Update (2026-07-30): Phase 5 built and deployed — sound, resilience, logos.** Cue detection TDD'd in timer-core (last-5s ticks, 1-min warning, phase horn, finish); WebAudio engine + speaker toggle on the display (autoplay policy: one tap to enable); refetch on reconnect + tab-visible; sponsor/organizer logo slots in contracts + display; final-5s red clock + phase progress bar. Listen-check pending: enable sound on app.comptimer.com/#demo and skip near a boundary. PR pending.
 

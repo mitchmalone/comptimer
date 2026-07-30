@@ -2,6 +2,13 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-31 — Phase 6: adjust, competitions, and buttons with real feel
+
+- **`adjust(state, ±ms, now)` completes the transition set** (7 tests): shifts remaining time in the derived phase, clamped to [1s, duration] — a correction can't end a phase (that's skip's job) or overflow it. Works running (anchor shift) and paused (remainder shift).
+- **Competitions shipped without touching contracts** — see the ADR: same session id, new plan per round, logos persisting on each publish. Control screen shows `title · n / N` and offers "Next: Finals" when a session finishes (or a quiet skip-ahead link).
+- **Skeuomorphic pass in pure RN styles** (drop shadow + inner top highlight + sink-on-press): no expo-linear-gradient, no new native modules — deliberately, so Mitch's existing dev client keeps working over Metro. Colour-coded faces: green primary, amber pause, red reset.
+- **Logo entry is URL fields** on setup (organizer + comma-separated sponsors) — rendering shipped in Phase 5; upload flow still deferred.
+
 ### 2026-07-30 — Phase 5: the display grew ears, resilience, and sponsors
 
 - **Cue detection is pure timer-core logic** (`detectCues(prev, next)`, 10 tests): countdown ticks ≤5s, one-minute warning, phase-change horn (start and skip included, resume excluded), finish outranks phase change. Web maps cues to WebAudio square-wave tones — zero audio assets.

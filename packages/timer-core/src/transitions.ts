@@ -88,3 +88,37 @@ export function skip(state: TimerState, nowMs: number): TimerState {
 export function reset(state: TimerState): TimerState {
   return createTimer(state.plan)
 }
+
+// A judge's correction can't be allowed to end a phase (that's what skip is
+// for) or exceed its length — remaining stays within [1s, duration].
+const MIN_REMAINING_MS = 1_000
+
+export function adjust(
+  state: TimerState,
+  deltaMs: number,
+  nowMs: number
+): TimerState {
+  if (state.status === 'running') {
+    const s = normalize(state, nowMs)
+    if (s.status !== 'running') return s
+    const duration = s.plan.phases[s.phaseIndex]?.durationMs ?? 0
+    const v = derive(s, nowMs)
+    const remaining = Math.min(
+      duration,
+      Math.max(MIN_REMAINING_MS, v.phaseRemainingMs + deltaMs)
+    )
+    return { ...s, phaseAnchorMs: nowMs - (duration - remaining) }
+  }
+  if (state.status === 'paused') {
+    const duration = state.plan.phases[state.phaseIndex]?.durationMs ?? 0
+    const remaining = Math.min(
+      duration,
+      Math.max(
+        MIN_REMAINING_MS,
+        (state.pausedRemainingMs ?? duration) + deltaMs
+      )
+    )
+    return { ...state, pausedRemainingMs: remaining }
+  }
+  return state
+}

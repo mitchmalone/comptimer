@@ -2,6 +2,13 @@
 
 > Lightweight ADR format. Newest at the top. Entry: date · title, then **Decision.** / **Why.** / **Tradeoff.**
 
+### 2026-07-31 · Competitions are phone-local; the display never learns they exist
+
+**Decision.** A competition is an ordered list of `{title, plan}` held by the mobile app. Advancing publishes a fresh timer under the **same session id** with the next title (logos persist on the payload). No competition concept in contracts, the database, or the display.
+
+- **Why.** The display's contract stays "render the session you're paired to" — no re-pairing between rounds, no schema growth, and invariant 3 (phone is the authority) does all the work. Qualifiers → finals is just the same channel changing its mind.
+- **Tradeoff.** Competition structure lives only in the phone's memory for now — killing the app mid-comp loses the remaining session list (the _running_ session survives in the DB). Persist to device storage when it matters.
+
 ### 2026-07-30 · Mobile delivery: EAS builds to TestFlight, dev clients for daily work, no OTA
 
 **Decision.** Mirrors Mitch's convention from `~/Developer/backcountrygames`: EAS Build + EAS Submit to TestFlight (`appVersionSource: remote`, production `autoIncrement`, EAS-managed credentials, `usesNonExemptEncryption: false` for non-interactive submits). Daily development on an ad-hoc **dev client**, installed once per registered device — never distributed via TestFlight. No expo-updates/OTA. EAS project: `@mitchmalone125/comptimer-app` (slug `comptimer` was burned by an earlier experiment), bundle id `com.comptimer.app`.
