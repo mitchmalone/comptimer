@@ -4,6 +4,8 @@
 
 Last updated: 2026-07-30
 
+> **Update (2026-07-30): Phase 5 built and deployed — sound, resilience, logos.** Cue detection TDD'd in timer-core (last-5s ticks, 1-min warning, phase horn, finish); WebAudio engine + speaker toggle on the display (autoplay policy: one tap to enable); refetch on reconnect + tab-visible; sponsor/organizer logo slots in contracts + display; final-5s red clock + phase progress bar. Listen-check pending: enable sound on app.comptimer.com/#demo and skip near a boundary. PR pending.
+
 > **Update (2026-07-30): Phase 4 verified on device — the product works end to end.** Mitch paired his iPhone dev client to app.comptimer.com and drove the display live. EAS/TestFlight delivery wired (dev client built, credentials provisioned; `ascAppId` pending an ASC app record). Awaiting PR #3 merge. Next: Phase 2 (needs `/design-login`) or Phase 5 (web polish + sound).
 
 > **Update (2026-07-30): Phase 4 code complete — pairing + realtime transport shipped, awaiting device test.** Supabase provisioned (Vercel Marketplace, env injected), `sessions` table + `server_time_ms()` migrated, `packages/transport` seam built, web is pair-by-default (`#demo` keeps the local demo), mobile has setup → connect → control. Needs Mitch: run the Expo app, enter the display code, press Start, confirm the TV responds. Phase 2 still blocked on `/design-login`.
