@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "build": "esbuild src/vercel.ts --bundle --platform=node --format=esm --outfile=api/index.mjs",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json"
   },
@@ -13,6 +14,7 @@
   },
   "devDependencies": {
     "@hono/node-server": "^1.19.8",
+    "esbuild": "^0.28.0",
     "tsx": "^4.20.5",
     "typescript": "~5.9.3",
     "vitest": "^4.0.8"

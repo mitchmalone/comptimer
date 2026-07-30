@@ -1,6 +1,13 @@
 packages:
   - apps/*
   - packages/*
+# Hoisted linker: real node_modules directories instead of the symlinked
+# .pnpm store. Required for two reasons:
+#   1. Vercel prebuilt deploys lstat traced files — symlinks into the root
+#      .pnpm store break the upload (Next.js file tracing).
+#   2. Expo/Metro tooling assumes a hoisted layout in monorepos.
+# Tradeoff: loses pnpm's strict dependency isolation (phantom deps possible).
+nodeLinker: hoisted
 allowBuilds:
   '@swc/core': true # native binary for @vitejs/plugin-react-swc
   esbuild: true # installs its platform binary
