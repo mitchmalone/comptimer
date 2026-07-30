@@ -1,6 +1,6 @@
 ---
 title: Phase 6 — Improve the mobile app
-status: active
+status: done
 created: 2026-07-31
 updated: 2026-07-31
 links: [docs/ROADMAP.md, STACK.md]
@@ -22,16 +22,16 @@ Phases 4–5 shipped the spine and the display. The phone still can't correct ti
 
 ## Steps
 
-- [ ] `timer-core`: `adjust` — test-first (running shifts anchor, paused shifts remainder, clamps both ends, idle/finished no-op)
-- [ ] `apps/mobile` setup: session list (add/remove/reorder-lite), per-session title + plan; organizer + sponsor logo URLs
-- [ ] `apps/mobile` control: ±30s buttons, next-session advance (same session id, logos persist), skeuomorphic button pass
-- [ ] Publish on adjust and on session advance; all tests green
+- [x] `timer-core`: `adjust` — test-first (running shifts anchor, paused shifts remainder, clamps both ends, idle/finished no-op)
+- [x] `apps/mobile` setup: session list (add/remove/reorder-lite), per-session title + plan; organizer + sponsor logo URLs
+- [x] `apps/mobile` control: ±30s buttons, next-session advance (same session id, logos persist), skeuomorphic button pass
+- [x] Publish on adjust and on session advance; all tests green
 
 ## Acceptance criteria
 
-- [ ] ±30s from the phone shifts the display immediately, clamped sanely at phase edges
-- [ ] A two-session competition runs end to end with the title switching and logos persisting
-- [ ] No new native dependencies (`package.json` diff proves it)
+- [x] ±30s from the phone shifts the display immediately, clamped sanely at phase edges
+- [x] A two-session competition runs end to end with the title switching and logos persisting
+- [x] No new native dependencies (`package.json` diff proves it)
 
 ## Out of scope
 

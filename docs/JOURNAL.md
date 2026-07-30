@@ -2,6 +2,11 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-31 — Phase 6 verified from TestFlight; session wrapped
+
+- **The whole product tested untethered:** TestFlight build 0.1.0 (4) ran a two-session competition against app.comptimer.com — adjust, skip, advance, logos, sound all live. Five of seven phases done in two days.
+- Tagged `mobile-v0.1.0` on main (backcountrygames tag convention).
+
 ### 2026-07-31 — TestFlight pipeline live; testing doctrine changed
 
 - **First production build shipped: 0.1.0 (build 4), auto-submitted to TestFlight.** One interactive run created the App Store provisioning profile (EAS refuses to _create_ credentials non-interactively — Apple constraint); every future build is `pnpm build:ios:mobile -- --auto-submit --non-interactive`, runnable by an agent.
