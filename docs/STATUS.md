@@ -4,6 +4,10 @@
 
 Last updated: 2026-07-30
 
+> **Update (2026-07-30): Phase 4 verified on device — the product works end to end.** Mitch paired his iPhone dev client to app.comptimer.com and drove the display live. EAS/TestFlight delivery wired (dev client built, credentials provisioned; `ascAppId` pending an ASC app record). Awaiting PR #3 merge. Next: Phase 2 (needs `/design-login`) or Phase 5 (web polish + sound).
+
+> **Update (2026-07-30): Phase 4 code complete — pairing + realtime transport shipped, awaiting device test.** Supabase provisioned (Vercel Marketplace, env injected), `sessions` table + `server_time_ms()` migrated, `packages/transport` seam built, web is pair-by-default (`#demo` keeps the local demo), mobile has setup → connect → control. Needs Mitch: run the Expo app, enter the display code, press Start, confirm the TV responds. Phase 2 still blocked on `/design-login`.
+
 > **Update (2026-07-30): Phase 3 built — app.comptimer.com counts down a real 5-on/5-off session.** `timer-core` state machine TDD'd (23 tests), Zod mirrors in contracts with drift protection, demo display + `#pair` scaffold deployed. Phase 2 (marketing) remains blocked on `/design-login`. Next: merge phase-3 PR, then Phase 2 or Phase 4 (pairing + Supabase transport).
 
 > **Update (2026-07-30): Phase 1 done pending PR merge — all four domains live.** www/app/admin/api.comptimer.com all serve their placeholders; API health green; CI green on PR #1. Remaining: merge PR #1, verify Expo boots in Expo Go on a device.

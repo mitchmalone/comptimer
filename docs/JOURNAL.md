@@ -2,6 +2,26 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-30 — First end-to-end run: phone drove the venue display
+
+- **Phase 4 acceptance verified on a real device.** Dev client (ad-hoc, iPhone) + Metro → paired to app.comptimer.com by code → Start/Pause/Skip/Reset all reflected on the display. First-time device friction worth remembering: iOS 16+ requires **Developer Mode** (Settings → Privacy & Security) for ad-hoc builds, with a restart; TestFlight builds won't need it.
+- **Credentials fully provisioned interactively:** reused the account's existing distribution certificate (shared with the backcountrygames apps), registered `com.comptimer.app`, ad-hoc profile with the registered iPhone. `eas build` from a real terminal — the harness shell has no TTY and eas-cli falls back to non-interactive.
+
+### 2026-07-30 — Mobile delivery wired: EAS + TestFlight (backcountrygames conventions)
+
+- **EAS project created and linked:** `@mitchmalone125/comptimer-app` (id in app.json; slug `comptimer` unavailable — previously used on the account). `eas.json` ports the backcountrygames shape: development (dev client, internal) / preview (internal) / production (autoIncrement), submit profile empty until the ASC app exists.
+- **Supabase EXPO*PUBLIC*\* vars set on EAS** for development/preview/production environments (plaintext, via `eas env:create` — values never in the repo; profiles pin `environment` so cloud builds resolve them).
+- **One-time interactive steps left for Mitch:** upload/reuse the ASC API key (`npx eas-cli credentials`), register phones (`npx eas-cli device:create`), and add `ascAppId` to `eas.json` submit config once the App Store Connect app record exists.
+- **expo-dev-client now versions with the SDK** (~57.0.x, not ~7.x) — install with `npx expo install expo-dev-client`.
+
+### 2026-07-30 — Phase 4: Supabase transport, pairing, mobile controller
+
+- **Supabase provisioned via the Vercel Marketplace** (`vercel integration add supabase` from apps/web) after direct `supabase projects create` hit an org-permissions wall. Env vars auto-injected into comptimer-web and pulled locally; VITE\_ mirrors added to Vercel env; EXPO*PUBLIC* mirrors in apps/mobile/.env. Schema applied with libpq psql over `POSTGRES_URL_NON_POOLING` (no `supabase link` needed).
+- **`packages/transport`**: `DisplayTransport`/`ControllerTransport` seam; Supabase impl. Controller sends go over Realtime's HTTP broadcast path (no persistent socket on the phone); display holds subscriptions. Clock offset via `server_time_ms()` RPC with half-RTT correction (`computeOffsetMs`, unit-tested).
+- **Ordering matters in connect:** phone upserts the session row _before_ broadcasting the claim, so the display's initial fetch always finds state.
+- **Web is pair-by-default now**: QR + code until claimed, then renders the phone's session; `sessionId` in localStorage so a refresh rehydrates from the row; connection dot bottom-right; `#demo` keeps the self-driving demo (also the jsdom smoke-test path, since jsdom has no WebSocket).
+- **Device test pending** — Metro + workspace TS packages in Expo Go is the known risk; not verifiable without a phone.
+
 ### 2026-07-30 — Blank display: React 19 version-mismatch hard crash
 
 - **Symptom: app.comptimer.com rendered nothing.** Root cause: React error #527 — `react` 19.2.3 (pinned exactly by the Expo template, hoisted workspace-wide) alongside `react-dom` 19.2.8 (floated via `^`). React 19 refuses to boot on mismatched copies. This is precisely the phantom-dependency tradeoff the hoisted-linker ADR warned about.

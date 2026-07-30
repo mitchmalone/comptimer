@@ -31,7 +31,11 @@ Broken down by surface. Every choice below is per-application — nothing here i
 
 ### `apps/mobile` — judge's controller
 
-- **React Native via Expo** (managed workflow, EAS builds, OTA updates). Not bare RN: no exotic native modules needed, and Expo gives deep-link/QR pairing handling nearly free. React Native and Expo appear **only** here.
+- **React Native via Expo** (managed workflow, CNG — native dirs are generated, never committed). Not bare RN: no exotic native modules needed. React Native and Expo appear **only** here.
+- **Delivery: EAS Build + EAS Submit → TestFlight.** Real builds are the artifact; Expo Go is not a delivery or testing path. `pnpm build:ios:mobile` / `pnpm submit:ios:mobile` from the root (thin `--filter` wrappers so the CWD is pinned inside the app — never run `eas` against the repo root).
+- **Daily development uses an ad-hoc dev client** (`build:ios:dev` profile, internal distribution, one `eas device:create` per phone) + Metro. **Dev clients never go to TestFlight** — they'd replace the real app as "latest" for testers.
+- **Versioning:** `appVersionSource: remote`, production `autoIncrement` — build numbers live on EAS. Marketing version hand-bumped in `app.json`. **No OTA/expo-updates**: every change ships as a native build.
+- **Credentials:** EAS-managed; one ASC API key uploaded to EAS (interactive, once). Supabase `EXPO_PUBLIC_*` config lives in EAS env vars per environment, not in the repo.
 - **Supabase Realtime publisher/subscriber** (via the transport interface); the only surface that issues commands.
 - Later: RevenueCat for purchases (deferred, §6).
 
