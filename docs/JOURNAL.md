@@ -2,6 +2,14 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-31 — The display grew up: design-matched to the hi-fi mockups
+
+- **`app.comptimer.com` now looks like the product, not a prototype.** Rebuilt the two web screens against `Comp Timer Mockups.dc.html` — W1 pairing (brand + "Scan to take control." + numbered steps + white QR card + "WAITING FOR CONTROLLER…" bar) and W2 live (session-title header, big Chivo Mono clock, boulder squares, sponsor strip).
+- **Biggest visual shift: the stage stays charcoal.** The old display flipped the whole background green/orange per phase; the mockup keeps `#0a0e10` constant and communicates phase with a **state pill** (CLIMB cyan / REST + PAUSED amber). Reads calmer on a big screen.
+- **Sound + connection moved into the header** as a status cluster (speaker icon + SOUND ON/TAP FOR SOUND, and a dot + LINKED / CONNECTING… / RECONNECTING…), replacing the corner toggle + dot. Unpair is a low-opacity ✕ in the corner.
+- **Strictly a restyle.** `TimerView` kept its state→pixels contract and `footer`/`cornerControls` props (so `#demo` still drives locally); `DisplayApp` data flow, `useSoundCues`, `useNow`, transport all untouched. Invariant 3 held — no session logic in the app. Final-5s red and the reconnect indicator survived the redesign.
+- **Type + palette pulled into `theme.ts`**; Archivo + Chivo Mono via a Google Fonts `<link>`; `display.css` kills the white pre-mount flash. **Not yet seen in a browser** — extension was disconnected, so the preview deploy (esp. `/#demo`) is the real QA.
+
 ### 2026-07-31 — Phase 6 verified from TestFlight; session wrapped
 
 - **The whole product tested untethered:** TestFlight build 0.1.0 (4) ran a two-session competition against app.comptimer.com — adjust, skip, advance, logos, sound all live. Five of seven phases done in two days.
