@@ -3,11 +3,11 @@ import { derive } from '@comptimer/timer-core'
 import type { ConnectionStatus } from '@comptimer/transport'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { PairScreen } from './PairScreen'
-import { SoundToggle } from './SoundToggle'
 import { TimerView } from './TimerView'
 import { getDisplayTransport } from './transport'
 import { useNow } from './useNow'
 import { useSoundCues } from './useSoundCues'
+import { D } from './theme'
 
 const SESSION_KEY = 'comptimer.sessionId'
 // Unambiguous alphabet (no 0/O, 1/I) — mirrors contracts' DisplayCodeSchema.
@@ -113,53 +113,124 @@ export function DisplayApp() {
       title={session.title}
       logos={session.logos}
       organizerLogoUrl={session.organizerLogoUrl}
-      cornerControls={
-        <>
-          <SoundToggle on={soundOn} onToggle={toggleSound} />
-          <ConnectionDot status={connection} />
-          <button
-            onClick={unpair}
-            title='Unpair this display'
-            style={{
-              position: 'absolute',
-              top: '1rem',
-              right: '1rem',
-              background: 'none',
-              border: 'none',
-              color: 'rgba(255,255,255,0.25)',
-              fontSize: '1rem',
-              cursor: 'pointer',
-            }}
-          >
-            ✕
-          </button>
-        </>
+      headerRight={
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'clamp(14px, 1.6vw, 26px)',
+          }}
+        >
+          <SoundStatus on={soundOn} onToggle={toggleSound} />
+          <ConnectionStatus status={connection} />
+        </div>
       }
+      cornerControls={<UnpairButton onClick={unpair} />}
     />
   )
 }
 
-function ConnectionDot({ status }: { status: ConnectionStatus }) {
-  const color =
-    status === 'connected'
-      ? '#3ddc84'
-      : status === 'connecting'
-        ? '#e8c547'
-        : '#ff5a5a'
+function statusLabelStyle(color: string): React.CSSProperties {
+  return {
+    fontFamily: D.mono,
+    fontWeight: 600,
+    fontSize: 'clamp(10px, 0.85vw, 13px)',
+    letterSpacing: '0.12em',
+    color,
+  }
+}
+
+function SoundStatus({ on, onToggle }: { on: boolean; onToggle: () => void }) {
+  const color = on ? D.sub : D.amber
+  const size = 'clamp(14px, 1.1vw, 18px)'
+  return (
+    <button
+      onClick={onToggle}
+      title={on ? 'Sound on' : 'Tap to enable sound'}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        background: 'none',
+        border: 'none',
+        padding: 0,
+        cursor: 'pointer',
+      }}
+    >
+      <svg
+        viewBox='0 0 24 24'
+        width={size}
+        height={size}
+        fill='none'
+        stroke={color}
+        strokeWidth={2}
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      >
+        <path d='M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z' />
+        {on ? (
+          <>
+            <path d='M16 9a5 5 0 0 1 0 6' />
+            <path d='M19.364 18.364a9 9 0 0 0 0-12.728' />
+          </>
+        ) : (
+          <>
+            <line x1='22' x2='16' y1='9' y2='15' />
+            <line x1='16' x2='22' y1='9' y2='15' />
+          </>
+        )}
+      </svg>
+      <span style={statusLabelStyle(color)}>
+        {on ? 'SOUND ON' : 'TAP FOR SOUND'}
+      </span>
+    </button>
+  )
+}
+
+function ConnectionStatus({ status }: { status: ConnectionStatus }) {
+  const map: Record<ConnectionStatus, { color: string; label: string }> = {
+    connected: { color: D.live, label: 'LINKED' },
+    connecting: { color: D.amber, label: 'CONNECTING…' },
+    disconnected: { color: D.danger, label: 'RECONNECTING…' },
+  }
+  const { color, label } = map[status]
   return (
     <div
       title={`Realtime: ${status} — the clock keeps running locally either way`}
+      style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+    >
+      <span
+        style={{
+          width: 8,
+          height: 8,
+          borderRadius: '50%',
+          background: color,
+        }}
+      />
+      <span style={statusLabelStyle(D.sub)}>{label}</span>
+    </div>
+  )
+}
+
+function UnpairButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      title='Unpair this display'
       style={{
         position: 'absolute',
-        bottom: '1.4rem',
-        right: '1.2rem',
-        width: '0.75rem',
-        height: '0.75rem',
-        borderRadius: '50%',
-        background: color,
-        opacity: 0.8,
+        bottom: '1.4vh',
+        right: '1.2vw',
+        background: 'none',
+        border: 'none',
+        color: 'rgba(255,255,255,0.18)',
+        fontSize: '1rem',
+        lineHeight: 1,
+        cursor: 'pointer',
       }}
-    />
+    >
+      ✕
+    </button>
   )
 }
 
@@ -169,12 +240,11 @@ function Centered({ children }: { children: React.ReactNode }) {
       style={{
         display: 'grid',
         placeItems: 'center',
-        minHeight: '100vh',
-        background: '#0b0b0f',
-        color: '#fff',
-        fontFamily: 'system-ui, sans-serif',
-        fontSize: '1.5rem',
-        opacity: 0.85,
+        height: '100vh',
+        background: D.scrBg,
+        color: D.sub,
+        fontFamily: D.sans,
+        fontSize: 'clamp(16px, 1.5vw, 24px)',
         textAlign: 'center',
         padding: '2rem',
       }}

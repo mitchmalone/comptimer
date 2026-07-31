@@ -22,6 +22,13 @@
 - **Why.** The import tool mints a _separate_ standalone Vercel project; we need the site inside the monorepo so it deploys to www.comptimer.com through the same prebuilt pipeline as the rest of the stack, shares tooling/CI, and stays maintainable as real React. Faithful rebuild also lets it be responsive (the mock is fixed-desktop px) and use proper self-hosted fonts.
 - **Tradeoff.** More work than a one-click import, and pixel-fidelity to the mock is a judgement call at small widths. Re-importing an updated design means re-translating — acceptable for a page that will now evolve as code.
 
+### 2026-07-31 · The crowd display is dark-only; phase reads from a pill, not the background
+
+**Decision.** `apps/web` renders a single dark theme (`#0a0e10`). The mockup ships a light variant, but the display doesn't expose a theme toggle. Phase state is shown by a colour-coded **state pill** (CLIMB cyan / REST + PAUSED amber) over a constant charcoal stage — replacing the earlier full-screen green/orange background flip.
+
+- **Why.** It's a crowd-facing screen at a venue, not a document — dark is correct and there's no user at the display to toggle. A constant background with a pill is calmer on a giant screen and keeps the clock the undisputed focus. Light mode would also need to come down the wire from the phone (the authority), which isn't worth wiring for a projector.
+- **Tradeoff.** The marketing site advertises "Light + dark"; that refers to the marketing page and the phone, not the venue display. Revisit if a gym ever wants a light-walled projector setup — the tokens already exist in the mockup.
+
 ### 2026-07-31 · Competitions are phone-local; the display never learns they exist
 
 **Decision.** A competition is an ordered list of `{title, plan}` held by the mobile app. Advancing publishes a fresh timer under the **same session id** with the next title (logos persist on the payload). No competition concept in contracts, the database, or the display.

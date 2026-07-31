@@ -1,0 +1,30 @@
+/* Display-wide base: dark background (no white flash before React mounts) and
+   the sponsor-strip auto-scroll. Fonts come from the <link> in index.html. */
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: #0a0e10;
+}
+
+body {
+  font-family: Archivo, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes ct-sponsor-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ct-sponsor-track {
+    animation: none !important;
+  }
+}
