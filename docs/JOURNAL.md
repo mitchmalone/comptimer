@@ -2,6 +2,14 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-07-31 — Phase 2: the marketing site, rebuilt not imported
+
+- **Design unblocked at last.** `/design-login` authorizes DesignSync (design-_system_ scopes) — but the marketing mock is a shared _page_ design, so it 404'd there and 403'd via WebFetch. Mitch exported the bundle (`comptimerweb.zip`) instead; `Comp Timer Marketing.dc.html` became the source of truth.
+- **Rebuilt as real Next.js, not pasted.** The `.dc.html` is a self-contained `x-dc` component (React runtime + `style-hover`/`{{ }}` idioms) — none of that ships. Translated to static-export Next: `globals.css` tokens mirroring the design's DARK/LIGHT maps, section components under `app/_components/`, one small `ThemeToggle` client island.
+- **Fonts self-hosted via `next/font/google`** (Anton display, Archivo body, Chivo Mono numerals) — no external font request, no FOUC. Theme is `data-theme` on `<html>`, set pre-paint by an inline script reading `localStorage`/`prefers-color-scheme`.
+- **Responsive pass over a fixed-desktop mock:** `clamp()` on the big Anton headlines, grids collapse (how 3→1, formats 5→2→1, duo 2→1, footer 4→2→1), nav links hide under 860px. Desktop tracks the mock closely.
+- **Real infra, not mock placeholders:** design used `.app`; site links to `app.comptimer.com`. App Store URL + support email are TODO placeholders in `_components/site-links.ts` (app is TestFlight-only). Visual QA deferred to the preview deploy — Chrome extension wasn't connected locally.
+
 ### 2026-07-31 — Phase 6 verified from TestFlight; session wrapped
 
 - **The whole product tested untethered:** TestFlight build 0.1.0 (4) ran a two-session competition against app.comptimer.com — adjust, skip, advance, logos, sound all live. Five of seven phases done in two days.

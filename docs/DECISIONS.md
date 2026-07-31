@@ -2,6 +2,13 @@
 
 > Lightweight ADR format. Newest at the top. Entry: date · title, then **Decision.** / **Why.** / **Tradeoff.**
 
+### 2026-07-31 · Marketing site rebuilt in-repo, not imported as its own Vercel project
+
+**Decision.** The Claude Design was hand-translated into `apps/marketing` (static-export Next.js, `next/font` self-hosted fonts, CSS-variable theming) rather than pushed live via the `import-claude-design-from-url` Vercel tool. The `.dc.html`'s `x-dc` React runtime is dropped entirely; only markup, copy, and the DARK/LIGHT token maps carry over.
+
+- **Why.** The import tool mints a _separate_ standalone Vercel project; we need the site inside the monorepo so it deploys to www.comptimer.com through the same prebuilt pipeline as the rest of the stack, shares tooling/CI, and stays maintainable as real React. Faithful rebuild also lets it be responsive (the mock is fixed-desktop px) and use proper self-hosted fonts.
+- **Tradeoff.** More work than a one-click import, and pixel-fidelity to the mock is a judgement call at small widths. Re-importing an updated design means re-translating — acceptable for a page that will now evolve as code.
+
 ### 2026-07-31 · Competitions are phone-local; the display never learns they exist
 
 **Decision.** A competition is an ordered list of `{title, plan}` held by the mobile app. Advancing publishes a fresh timer under the **same session id** with the next title (logos persist on the payload). No competition concept in contracts, the database, or the display.
