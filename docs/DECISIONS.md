@@ -2,6 +2,19 @@
 
 > Lightweight ADR format. Newest at the top. Entry: date · title, then **Decision.** / **Why.** / **Tradeoff.**
 
+### 2026-08-12 · STACK.md dissolved — jig reconciliation
+
+**Decision.** comptimer now follows the jig standard (github.com/mitchmalone/jig, canonical `AGENTS.md`). `STACK.md` is deleted: the stack table and invariants moved to the project `AGENTS.md` (deltas only), divergences to `DEVIATIONS.md`, and per-choice rationale lives here. Most of STACK.md's reasoning already had dated entries below; the remainder, recorded now (all decided 2026-07-30 originally):
+
+- **Hono for `apps/api`** — small, Vercel-native, Zod-friendly; the only surface holding the Supabase service-role key.
+- **Next.js (static) for `apps/marketing`** — the one surface that wants SSR/SEO; everything else is deliberately client-rendered.
+- **`apps/admin` is a minimal Vite SPA** password-gated through the api — internal ops tool, deliberately unimpressive.
+- **pnpm workspaces without Turbo/Nx** — no build orchestration until it hurts.
+- **v1 out of scope:** accounts, multi-judge sessions, results/scoring, spectator mobile views, native TV apps. Deferred items (payments, auth, presets, logo storage, license) are sequenced in `docs/ROADMAP.md`.
+
+- **Why.** One canonical standard across projects beats per-repo law; the AGENTS.md/STACK.md split predates the jig and restated much of what is now the standard.
+- **Tradeoff.** Stack rationale is now spread across dated entries rather than one narrative document — the price of "single source of truth per fact."
+
 ### 2026-07-31 · Competitions are phone-local; the display never learns they exist
 
 **Decision.** A competition is an ordered list of `{title, plan}` held by the mobile app. Advancing publishes a fresh timer under the **same session id** with the next title (logos persist on the payload). No competition concept in contracts, the database, or the display.

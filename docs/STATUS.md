@@ -2,7 +2,9 @@
 
 > The cursor. Where the build is right now, newest first. Keep this **terse** — detail belongs in JOURNAL.md, decisions in DECISIONS.md.
 
-Last updated: 2026-07-31
+Last updated: 2026-08-12
+
+> **Update (2026-08-12): Reconciled to the jig standard.** `pnpm verify` is the one gate (typecheck + lint + format:check + test) — pre-push and CI both run it; node engine/CI/nvmrc bumped to 24; `prepare` guarded for git-less builders (EAS). `AGENTS.md` rewritten deltas-only against the jig's canonical standard; `STACK.md` dissolved (stack table → AGENTS.md, rationale → DECISIONS 2026-08-12 entry); `CLAUDE.md` is now a one-line `@AGENTS.md` pointer, not a symlink; `DEVIATIONS.md` created (Expo/EAS no-flavor, 4 Vercel projects vs 2, no Better Auth until Phase 7). Watch: first EAS build under engines `>=24` (builder images pin their own node; pnpm only warns). Open branches (`feature/web-display-design`, marketing PR #6) will conflict lightly on these docs and still reference STACK.md — resolve toward this shape on merge.
 
 > **Update (2026-07-31): Phase 6 verified via TestFlight — session closed with phases 1, 3, 4, 5, 6 done.** Mitch tested the full app from TestFlight build 0.1.0 (4): adjust, competitions, session advance all working against the live display. TestFlight pipeline is fully non-interactive now (`pnpm build:ios:mobile -- --auto-submit --non-interactive`). **Next session starts here:** Phase 2 (marketing — needs `/design-login`) or Phase 7 (RevenueCat + admin + license; note IAP is testable in TestFlight sandbox). Loose ends: Monologue screenshot for the button design pass, logo upload flow, `#demo` route is public, RLS tightening rides with Phase 7 identity.
 
