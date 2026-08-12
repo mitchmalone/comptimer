@@ -4,16 +4,18 @@
   "type": "module",
   "packageManager": "pnpm@11.1.1",
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "scripts": {
     "dev": "pnpm --parallel --filter web --filter api dev",
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
-    "lint": "eslint . --max-warnings 0 && prettier --check .",
+    "lint": "eslint . --max-warnings 0",
     "format": "prettier --write .",
-    "prepare": "lefthook install",
+    "format:check": "prettier --check .",
+    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test",
+    "prepare": "git rev-parse --git-dir >/dev/null 2>&1 && lefthook install || true",
     "build:ios:mobile": "pnpm --filter mobile build:ios",
     "submit:ios:mobile": "pnpm --filter mobile submit:ios"
   },

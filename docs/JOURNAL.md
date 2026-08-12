@@ -2,6 +2,12 @@
 
 > Append-only build log. **Newest at the top.** Each entry: date, title, then bullets whose lead is a bolded takeaway.
 
+### 2026-08-12 — Jig reconciliation
+
+- **One gate now exists: `pnpm verify`** — pre-push and CI run the identical command; the old lint script silently bundled prettier, now split (`lint` = eslint, `format:check` = prettier).
+- **`prepare` must be git-guarded in EAS-built monorepos:** tarball builders have no `.git`, so bare `lefthook install` fails the install step (bit backcountrygames first; adopted here preemptively).
+- **STACK.md's job split three ways:** table → AGENTS.md, rationale → DECISIONS, divergences → DEVIATIONS.md. Symptom to avoid: two law files that restate each other and drift.
+
 ### 2026-07-31 — Phase 6 verified from TestFlight; session wrapped
 
 - **The whole product tested untethered:** TestFlight build 0.1.0 (4) ran a two-session competition against app.comptimer.com — adjust, skip, advance, logos, sound all live. Five of seven phases done in two days.
