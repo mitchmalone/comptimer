@@ -18,3 +18,6 @@ coverage/
 # Claude Code — ignore personal/local state, keep shared config tracked
 .claude/settings.local.json
 out/
+
+# per-machine direnv glue (Infisical injects env)
+.envrc
